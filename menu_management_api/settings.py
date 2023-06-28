@@ -79,7 +79,7 @@ DATABASES = {
     "default": {
         "ENGINE": os.environ.get("DB_DRIVER", "django.db.backends.postgresql"),
         "USER": os.environ.get("POSTGRES_USER", "postgres"),
-        "PASSWORD": "postgres",  # os.environ.get("POSTGRES_PASSWORD", "postgres"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
         "NAME": os.environ.get("POSTGRES_DB", "menu_management_db"),
         "PORT": os.environ.get("POSTGRES_PORT", "5433"),
         "HOST": os.environ.get("CONTAINER_DB_HOST", "pgdb"),
