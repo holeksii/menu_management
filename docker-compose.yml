@@ -1,0 +1,37 @@
+version: "3.8"
+
+volumes:
+  pgdata:
+
+networks:
+  dev:
+    driver: bridge
+
+services:
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - pgdb
+    env_file:
+      - db.env
+      - api.env
+    ports:
+      - 8000:8000
+    networks:
+      - dev
+
+  pgdb:
+    container_name: pgdb
+    image: postgres:15-alpine
+    restart: always
+    env_file:
+      - db.env
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - dev
