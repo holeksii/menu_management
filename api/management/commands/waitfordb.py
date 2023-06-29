@@ -8,6 +8,8 @@ from django.core.management.base import BaseCommand
 class Command(BaseCommand):
     """Wait to connect to db until db is initialised"""
 
+    MAX_TIME = 30
+
     def handle(self, *args, **options):
         start = time.time()
         self.stdout.write("Waiting for database...")
@@ -17,6 +19,8 @@ class Command(BaseCommand):
                 connection.ensure_connection()
                 can_connect = True
             except OperationalError:
+                if time.time() - start > Command.MAX_TIME:
+                    raise OperationalError("Database unavailable")
                 time.sleep(0.5)
 
         end = time.time()
