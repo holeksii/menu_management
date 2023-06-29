@@ -4,7 +4,7 @@
 - Docker
 - Docker-compose
 
-## Installation
+## Installation & Running
 - Clone the repository
 - Run the following command to build the docker image
 
