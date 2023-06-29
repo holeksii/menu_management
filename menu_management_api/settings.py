@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+from .utils import load_env
+
+load_env("api.env")
+load_env("pgdb.env")
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,6 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -38,7 +44,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    # "api",
+    "rest_framework_swagger",
+    "api",
 ]
 
 MIDDLEWARE = [
@@ -79,9 +86,9 @@ DATABASES = {
     "default": {
         "ENGINE": os.environ.get("DB_DRIVER", "django.db.backends.postgresql"),
         "USER": os.environ.get("POSTGRES_USER", "postgres"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
-        "NAME": os.environ.get("POSTGRES_DB", "menu_management_db"),
-        "PORT": os.environ.get("POSTGRES_PORT", "5433"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "password1234"),
+        "NAME": os.environ.get("POSTGRES_DB", "postgres"),
+        "PORT": os.environ.get("POSTGRES_PORT", "5432"),
         "HOST": os.environ.get("CONTAINER_DB_HOST", "pgdb"),
     }
 }
@@ -89,10 +96,10 @@ DATABASES = {
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
-#         "USER": "user",
-#         "PASSWORD": "admin",
-#         "NAME": "menu_management_db",
-#         "PORT": "54320",
+#         "USER": "postgres",
+#         "PASSWORD": "password1234",
+#         "NAME": "postgres",
+#         "PORT": "5432",
 #         "HOST": "localhost",
 #     }
 # }

@@ -10,28 +10,23 @@ networks:
 services:
   api:
     container_name: api
+    env_file:
+      - api.env
     build:
       context: .
       dockerfile: Dockerfile
     depends_on:
       - pgdb
-    env_file:
-      - db.env
-      - api.env
     ports:
-      - 8000:8000
-    networks:
-      - dev
+      - ${API_PORT}:${API_PORT}
 
   pgdb:
     container_name: pgdb
+    env_file:
+      - pgdb.env
     image: postgres:15-alpine
     restart: always
-    env_file:
-      - db.env
     ports:
-      - 5432:5432
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
       - pgdata:/var/lib/postgresql/data
-    networks:
-      - dev
