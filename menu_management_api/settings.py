@@ -63,7 +63,7 @@ ROOT_URLCONF = "menu_management_api.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join("./", "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
